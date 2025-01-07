@@ -24,7 +24,7 @@ resource "heroku_formation" "webdav_heroku_web" {
 
 resource "heroku_domain" "webdav" {
   app_id   = heroku_app.webdav.id
-  hostname = "webdav.dandi.ember-archive.org"
+  hostname = "webdav-dandi.ember-archive.org"
 }
 
 resource "aws_route53_record" "heroku" {
