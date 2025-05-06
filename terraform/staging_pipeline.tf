@@ -13,7 +13,7 @@ module "api_staging" {
   project_slug     = "ember-dandi-api-sandbox"
   heroku_team_name = data.heroku_team.dandi.name
   route53_zone_id  = aws_route53_zone.dandi.zone_id
-  subdomain_name   = "api-dandi-sandbox"
+  subdomain_name   = ""
 
   heroku_web_dyno_size    = "basic"
   heroku_worker_dyno_size = "basic"
