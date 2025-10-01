@@ -61,7 +61,7 @@ module "api_sandbox_heroku" {
   worker_dyno_quantity = 1
   postgresql_plan      = "essential-0" // "essential-1"
   cloudamqp_plan       = "ermine" // "tiger"
-  papertrail_plan      = "choklad" // "fixa"
+  papertrail_plan      = "fixa" // "choklad"
 }
 
 resource "heroku_formation" "api_sandbox_checksum_worker" {
