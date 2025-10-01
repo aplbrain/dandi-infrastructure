@@ -55,9 +55,9 @@ module "api_sandbox_heroku" {
     DJANGO_DANDI_DOI_API_PASSWORD = var.test_doi_api_password
   }
 
-  web_dyno_size        = "basic"
-  web_dyno_quantity    = 1
-  worker_dyno_size     = "basic"
+  web_dyno_size        = "standard-2x" // "basic"
+  web_dyno_quantity    = 2 // 1
+  worker_dyno_size     = "standard-2x" // "basic"
   worker_dyno_quantity = 1
   postgresql_plan      = "essential-0" // "essential-1"
   cloudamqp_plan       = "ermine" // "tiger"
@@ -67,7 +67,7 @@ module "api_sandbox_heroku" {
 resource "heroku_formation" "api_sandbox_checksum_worker" {
   app_id   = module.api_sandbox_heroku.app_id
   type     = "checksum-worker"
-  size     = "basic"
+  size     = "standard-2x" // "basic"
   quantity = 1
 }
 
