@@ -55,19 +55,19 @@ module "api_sandbox_heroku" {
     DJANGO_DANDI_DOI_API_PASSWORD = var.test_doi_api_password
   }
 
-  web_dyno_size        = "standard-2x" // "basic"
-  web_dyno_quantity    = 2 // 1
-  worker_dyno_size     = "standard-2x" // "basic"
+  web_dyno_size        = "basic" // "standard-2x"
+  web_dyno_quantity    = 1
+  worker_dyno_size     = "basic" // "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "standard-0" // "essential-0"
-  cloudamqp_plan       = "ermine" //"squirrel-1"
+  postgresql_plan      = "essential-0" // "standard-0"
+  cloudamqp_plan       = "ermine" // "squirrel-1"
   papertrail_plan      = "choklad" // "fixa"
 }
 
 resource "heroku_formation" "api_sandbox_checksum_worker" {
   app_id   = module.api_sandbox_heroku.app_id
   type     = "checksum-worker"
-  size     = "standard-2x" // "basic"
+  size     = "basic" // "standard-2x"
   quantity = 1
 }
 

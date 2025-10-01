@@ -55,9 +55,9 @@ module "api_heroku" {
     DJANGO_DANDI_DOI_API_PASSWORD = var.doi_api_password
   }
 
-  web_dyno_size        = "basic" // "standard-2x"
-  web_dyno_quantity    = 1 // 3 (Error: >1 basic dyno is not allowed)
-  worker_dyno_size     = "basic" // "standard-2x"
+  web_dyno_size        = "standard-2x"
+  web_dyno_quantity    = 2
+  worker_dyno_size     = "standard-2x"
   worker_dyno_quantity = 1
   postgresql_plan      = "essential-0" // "standard-0"
   cloudamqp_plan       = "ermine" // "squirrel-1"
@@ -67,7 +67,7 @@ module "api_heroku" {
 resource "heroku_formation" "api_checksum_worker" {
   app_id   = module.api_heroku.app_id
   type     = "checksum-worker"
-  size     = "basic" // "standard-2x"
+  size     = "standard-2x"
   quantity = 1
 }
 
