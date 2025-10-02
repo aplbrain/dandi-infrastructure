@@ -12,6 +12,12 @@ resource "random_string" "api_sandbox_django_secret" {
   special = false
 }
 
+import {
+  to = module.api_sandbox_heroku.heroku_addon.heroku_postgresql[0]
+  id = "90ba6b99-8ea2-4e82-8d2d-59b0c2233b73"
+}
+
+
 module "api_sandbox_heroku" {
   source  = "kitware-resonant/resonant/heroku//modules/heroku"
   version = "2.1.1"
