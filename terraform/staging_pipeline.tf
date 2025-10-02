@@ -14,7 +14,7 @@ resource "random_string" "api_sandbox_django_secret" {
 
 import {
   to = module.api_sandbox_heroku.heroku_addon.heroku_postgresql
-  id = "90ba6b99-8ea2-4e82-8d2d-59b0c2233b73"
+  id = "ember-dandi-api-sandbox::postgresql-horizontal-05801"
 }
 
 
@@ -65,7 +65,7 @@ module "api_sandbox_heroku" {
   web_dyno_quantity    = 1
   worker_dyno_size     = "basic" // "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "essential-0" // "standard-0"
+  postgresql_plan      = "standard-0" // "standard-0"
   cloudamqp_plan       = "ermine" // "squirrel-1"
   papertrail_plan      = "choklad" // "fixa"
 }
