@@ -12,10 +12,10 @@ resource "random_string" "api_sandbox_django_secret" {
   special = false
 }
 
-import {
-  to = module.api_sandbox_heroku.heroku_addon.heroku_postgresql
-  id = "ember-dandi-api-sandbox::postgresql-horizontal-05801"
-}
+# import {
+#   to = module.api_sandbox_heroku.heroku_addon.heroku_postgresql
+#   id = "ember-dandi-api-sandbox::postgresql-horizontal-05801"
+# }
 
 
 module "api_sandbox_heroku" {
