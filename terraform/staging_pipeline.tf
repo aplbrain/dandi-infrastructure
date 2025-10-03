@@ -65,7 +65,7 @@ module "api_sandbox_heroku" {
   web_dyno_quantity    = 1
   worker_dyno_size     = "basic" // "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "standard-0" // "standard-0"
+  postgresql_plan      = "standard-1" // "standard-0"
   cloudamqp_plan       = "ermine" // "squirrel-1"
   papertrail_plan      = "choklad" // "fixa"
 }
