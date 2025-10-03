@@ -59,9 +59,9 @@ module "api_heroku" {
   web_dyno_quantity    = 2
   worker_dyno_size     = "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "essential-0" // "standard-0"
+  postgresql_plan      = "standard-0" // was "essential-0" 
   cloudamqp_plan       = "ermine" // "squirrel-1"
-  papertrail_plan      = "choklad" // "fredrik"
+  papertrail_plan      = "choklad" // "fixa"
 }
 
 resource "heroku_formation" "api_checksum_worker" {
