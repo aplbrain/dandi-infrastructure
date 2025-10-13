@@ -40,6 +40,7 @@ module "api_sandbox_heroku" {
     DJANGO_CELERY_WORKER_CONCURRENCY = "2"
     DJANGO_SENTRY_DSN                = data.sentry_key.this.dsn_public
     DJANGO_SENTRY_ENVIRONMENT        = "staging"
+    DJANGO_OAUTH2_ALLOW_URI_WILDCARDS = "true"
     DJANGO_DANDI_WEB_APP_URL         = "https://apl-setup--ember-dandi-archive.netlify.app" // Future: "dandi.sandbox.emberarchive.org"
     DJANGO_DANDI_API_URL             = "https://api-dandi.sandbox.emberarchive.org"
     DJANGO_DANDI_JUPYTERHUB_URL      = "https://hub.dandiarchive.org/"
@@ -50,7 +51,6 @@ module "api_sandbox_heroku" {
 
     # These may be removed in the future
     DJANGO_DANDI_DANDISETS_BUCKET_NAME   = module.staging_dandiset_bucket.bucket_name
-    DJANGO_DANDI_DANDISETS_BUCKET_PREFIX = ""
     DJANGO_DANDI_DEV_EMAIL               = var.dev_email
     DJANGO_DANDI_ADMIN_EMAIL             = "info@emberarchive.org"
   }
