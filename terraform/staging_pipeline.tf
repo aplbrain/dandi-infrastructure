@@ -1,6 +1,6 @@
 module "api_sandbox_smtp" {
   source  = "kitware-resonant/resonant/heroku//modules/smtp"
-  version = "2.1.1"
+  version = "3.0.0"
 
   fqdn            = "api-dandi.sandbox.emberarchive.org"
   project_slug    = "ember-dandi-api-sandbox"
@@ -20,7 +20,7 @@ resource "random_string" "api_sandbox_django_secret" {
 
 module "api_sandbox_heroku" {
   source  = "kitware-resonant/resonant/heroku//modules/heroku"
-  version = "2.1.1"
+  version = "3.0.0"
 
   team_name = data.heroku_team.dandi.name
   app_name  = "ember-dandi-api-sandbox"
@@ -28,7 +28,7 @@ module "api_sandbox_heroku" {
 
   config_vars = {
     AWS_ACCESS_KEY_ID                  = aws_iam_access_key.api_sandbox_heroku_user.id
-    AWS_DEFAULT_REGION                 = data.aws_region.current.name
+    AWS_DEFAULT_REGION                 = data.aws_region.current.region
     DJANGO_ALLOWED_HOSTS               = join(",", ["apl-setup--ember-dandi-archive.netlify.app", "api-dandi.sandbox.emberarchive.org"])
     DJANGO_CORS_ALLOWED_ORIGINS        = join(",", ["https://apl-setup--ember-dandi-archive.netlify.app", "https://neurosift.app"])
     DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",", ["^https:\\/\\/[0-9a-z\\-]+--dandi-sandbox-emberarchive-org\\.netlify\\.app$", "^https:\\/\\/[0-9a-z\\-]+--ember-dandi-archive\\.netlify\\.app$"])
@@ -37,9 +37,9 @@ module "api_sandbox_heroku" {
     DJANGO_STORAGE_BUCKET_NAME         = module.staging_dandiset_bucket.bucket_name
 
     # DANDI-specific variables
-    DJANGO_CELERY_WORKER_CONCURRENCY = "2"
-    DJANGO_SENTRY_DSN                = data.sentry_key.this.dsn_public
-    DJANGO_SENTRY_ENVIRONMENT        = "staging"
+    DJANGO_CELERY_WORKER_CONCURRENCY  = "2"
+    DJANGO_SENTRY_DSN                 = data.sentry_key.this.dsn.public
+    DJANGO_SENTRY_ENVIRONMENT         = "staging"
     DJANGO_OAUTH2_ALLOW_URI_WILDCARDS = "true"
     DJANGO_DANDI_WEB_APP_URL         = "https://apl-setup--ember-dandi-archive.netlify.app" // Future: "dandi.sandbox.emberarchive.org"
     DJANGO_DANDI_API_URL             = "https://api-dandi.sandbox.emberarchive.org"
