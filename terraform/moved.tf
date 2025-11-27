@@ -1,3 +1,6 @@
+# TODO: these are the old staging resourcVes that we are moving to sandbox.
+# They will be removed once the sandbox is fully operational and the staging
+# resources are no longer needed.
 moved {
   from = module.api.module.heroku
   to   = module.api_heroku
@@ -26,4 +29,9 @@ moved {
 moved {
   from = module.api.aws_iam_access_key.heroku_user
   to   = aws_iam_access_key.api_heroku_user
+}
+
+moved {
+  from = module.api_sandbox.aws_iam_user.heroku_user
+  to = aws_iam_user.api_sandbox_heroku_user
 }

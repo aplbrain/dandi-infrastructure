@@ -8,6 +8,8 @@ resource "aws_s3_bucket" "dandiset_bucket" {
 
   bucket = var.bucket_name
 
+  provider = aws
+
   lifecycle {
     prevent_destroy = true
   }
@@ -50,9 +52,8 @@ resource "aws_s3_bucket_cors_configuration" "dandiset_bucket" {
     allowed_headers = [
       "*"
     ]
-    expose_headers = [
-      "ETag",
-    ]
+    expose_headers = var.aws_open_data ? ["ETag", "x-amz-meta-custom-header"] : ["ETag"]
+
     max_age_seconds = 3000
   }
 }
@@ -273,6 +274,33 @@ data "aws_iam_policy_document" "dandiset_bucket_policy" {
       type        = "*"
     }
   }
+
+  # APL ITSD Managed policy
+  statement {
+    sid = "AllowSSLRequestsOnly"
+
+    resources = [
+      "${aws_s3_bucket.dandiset_bucket.arn}",
+      "${aws_s3_bucket.dandiset_bucket.arn}/*",
+    ]
+
+    actions = [
+      "s3:*",
+    ]
+
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
+    }
+
+    effect = "Deny"
+
+    principals {
+      identifiers = ["*"]
+      type        = "*"
+    }
+  }
 }
 
 
@@ -280,7 +308,62 @@ resource "aws_s3_bucket_lifecycle_configuration" "dandiset_bucket" {
   # Must have bucket versioning enabled first
   depends_on = [aws_s3_bucket_versioning.dandiset_bucket]
 
+  count = var.aws_open_data ? 1 : 0
+
   bucket = aws_s3_bucket.dandiset_bucket.id
+
+
+  #  S3 lifecycle policy that moves objects into Intelligent Tiering
+  dynamic "rule" {
+    # Only create this rule if aws_open_data is set to true
+    for_each = var.aws_open_data ? [1] : []
+
+    content {
+      id = "IntelligentTieringRule"
+      filter {
+        # All objects
+        prefix = ""
+      }
+
+      # Current versions actions - move objects to Intelligent-Tiering on day 0
+      transition {
+        days = 0
+        storage_class = "INTELLIGENT_TIERING"
+      }
+
+      # Noncurrent versions actions - none
+      # noncurrent_version_transition {}
+
+      status = "Enabled"
+    }
+  }
+
+  #  S3 lifecycle policy that aborts incomplete multipart uploads
+  dynamic "rule" {
+    # Only create this rule if aws_open_data is set to target_bucket
+    for_each = var.aws_open_data ? [1] : []
+
+    content {
+      id = "AbortIncompleteMultipartUploadRule"
+      filter {
+        # All objects
+        prefix = ""
+      }
+
+      # Current versions actions - none
+      # transition {}
+
+      # Noncurrent versions actions - none
+      # noncurrent_version_transition {}
+
+      # Incomplete Multipart uploads - Delete after day 7
+      abort_incomplete_multipart_upload {
+        days_after_initiation = 7
+      }
+
+      status = "Enabled"
+    }
+  }
 
   # S3 lifecycle policy that permanently deletes objects with delete markers
   # after 30 days. Note, this only applies to objects with the `blobs/` prefix.

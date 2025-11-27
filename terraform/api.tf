@@ -2,8 +2,8 @@ module "api_smtp" {
   source  = "kitware-resonant/resonant/heroku//modules/smtp"
   version = "3.0.0"
 
-  fqdn            = "api.dandiarchive.org"
-  project_slug    = "dandi-api"
+  fqdn            = "api-dandi.emberarchive.org"
+  project_slug    = "ember-dandi-api"
   route53_zone_id = aws_route53_zone.dandi.zone_id
 }
 
@@ -17,16 +17,16 @@ module "api_heroku" {
   version = "3.0.0"
 
   team_name = data.heroku_team.dandi.name
-  app_name  = "dandi-api"
-  fqdn      = "api.dandiarchive.org"
+  app_name  = "ember-dandi-api"
+  fqdn      = "api-dandi.emberarchive.org"
 
   config_vars = {
     AWS_ACCESS_KEY_ID                  = aws_iam_access_key.api_heroku_user.id
     AWS_DEFAULT_REGION                 = data.aws_region.current.region
-    DJANGO_ALLOWED_HOSTS               = "api.dandiarchive.org"
-    DJANGO_CORS_ALLOWED_ORIGINS        = join(",", ["https://dandiarchive.org", "https://neurosift.app"])
-    DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",", ["^https:\\/\\/[0-9a-z\\-]+--gui-dandiarchive-org\\.netlify\\.app$"])
-    DJANGO_DEFAULT_FROM_EMAIL          = "admin@api.dandiarchive.org"
+    DJANGO_ALLOWED_HOSTS               = "api-dandi.emberarchive.org"
+    DJANGO_CORS_ALLOWED_ORIGINS        = join(",", ["https://dandi.emberarchive.org", "https://neurosift.app"])
+    DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",",  ["^https:\\/\\/[0-9a-z\\-]+--gui-dandi.emberarchive-org\\.netlify\\.app$"])
+    DJANGO_DEFAULT_FROM_EMAIL          = "admin@api-dandi.emberarchive.org"
     DJANGO_SETTINGS_MODULE             = "dandiapi.settings.heroku_production"
     DJANGO_STORAGE_BUCKET_NAME         = module.sponsored_dandiset_bucket.bucket_name
 
@@ -34,20 +34,22 @@ module "api_heroku" {
     DJANGO_CELERY_WORKER_CONCURRENCY = "4"
     DJANGO_SENTRY_DSN                = data.sentry_key.this.dsn.public
     DJANGO_SENTRY_ENVIRONMENT        = "production"
-    DJANGO_DANDI_WEB_APP_URL         = "https://dandiarchive.org"
-    DJANGO_DANDI_API_URL             = "https://api.dandiarchive.org"
+    DJANGO_DANDI_WEB_APP_URL         = "https://dandi.emberarchive.org"
+    DJANGO_DANDI_API_URL             = "https://api-dandi.emberarchive.org"
     DJANGO_DANDI_JUPYTERHUB_URL      = "https://hub.dandiarchive.org/"
-    DJANGO_DANDI_DOI_API_URL         = "https://api.datacite.org/dois"
-    DJANGO_DANDI_DOI_API_USER        = "dartlib.dandi"
-    DJANGO_DANDI_DOI_API_PREFIX      = "10.48324"
+    DJANGO_DANDI_DOI_API_URL         = "https://api.test.datacite.org/dois" # TODO: Replace with "https://api.datacite.org/dois"
+    DJANGO_DANDI_DOI_API_USER        = "JHU.NXHEVY" # TODO: Replace with non-test user
+    DJANGO_DANDI_DOI_API_PREFIX      = "10.82754" # TODO: Replace with non-test prefix
     DJANGO_DANDI_DOI_PUBLISH         = "true"
-    DJANGO_DANDI_INSTANCE_NAME       = "DANDI"
-    DJANGO_DANDI_INSTANCE_IDENTIFIER = "RRID:SCR_017571"
+    DJANGO_DANDI_INSTANCE_NAME       = "EMBER-DANDI"
+    DJANGO_DANDI_INSTANCE_IDENTIFIER = "RRID:SCR_026700"
+    DJANGO_DANDI_LICENSES            = jsonencode(["spdx:CC0-1.0", "spdx:CC-BY-4.0", "spdx:CC-BY-NC-SA-4.0"])
+
 
     # These may be removed in the future
     DJANGO_DANDI_DANDISETS_BUCKET_NAME = module.sponsored_dandiset_bucket.bucket_name
     DJANGO_DANDI_DEV_EMAIL             = var.dev_email
-    DJANGO_DANDI_ADMIN_EMAIL           = "info@dandiarchive.org"
+    DJANGO_DANDI_ADMIN_EMAIL           = "info@emberarchive.org"
   }
   sensitive_config_vars = {
     AWS_SECRET_ACCESS_KEY         = aws_iam_access_key.api_heroku_user.secret
@@ -57,12 +59,12 @@ module "api_heroku" {
   }
 
   web_dyno_size        = "standard-2x"
-  web_dyno_quantity    = 3
+  web_dyno_quantity    = 2
   worker_dyno_size     = "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "standard-0"
-  cloudamqp_plan       = "squirrel-1"
-  papertrail_plan      = "fredrik"
+  postgresql_plan      = "standard-0" // was "essential-0"
+  cloudamqp_plan       = "ermine" // "squirrel-1"
+  papertrail_plan      = "fixa" // "choklad"
 }
 
 resource "heroku_formation" "api_checksum_worker" {
@@ -74,14 +76,14 @@ resource "heroku_formation" "api_checksum_worker" {
 
 resource "aws_route53_record" "api_heroku" {
   zone_id = aws_route53_zone.dandi.zone_id
-  name    = "api"
+  name    = "api-dandi"
   type    = "CNAME"
   ttl     = "300"
   records = [module.api_heroku.cname]
 }
 
 resource "aws_iam_user" "api_heroku_user" {
-  name = "dandi-api-heroku"
+  name = "ember-dandi-api-heroku"
 }
 
 resource "aws_iam_access_key" "api_heroku_user" {
