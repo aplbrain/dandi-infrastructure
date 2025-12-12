@@ -62,9 +62,9 @@ module "api_heroku" {
   web_dyno_quantity    = 2
   worker_dyno_size     = "standard-2x"
   worker_dyno_quantity = 1
-  postgresql_plan      = "standard-0" // was "essential-0"
+  postgresql_plan      = "standard-0"
   cloudamqp_plan       = "ermine" // "squirrel-1"
-  papertrail_plan      = "fixa" // "choklad"
+  papertrail_plan      = "fixa" // "liatorp"
 }
 
 resource "heroku_formation" "api_checksum_worker" {
@@ -95,7 +95,29 @@ resource "aws_iam_user" "backup" {
   name = "backup"
 }
 
+// EMBER is not currently using datalad so we should not need the following
+
 # A user for performing programmatic backups to datalad
 // resource "aws_iam_user" "backups2datalad" {
 //   name = "backups2datalad"
+// }
+
+// resource "aws_iam_user_policy" "sponsored_bucket_read_only" {
+//   name   = "SponsoredBucketReadOnlyAccess"
+//   policy = data.aws_iam_policy_document.sponsored_bucket_read_only.json
+//   user   = aws_iam_user.backups2datalad.name
+// }
+
+// data "aws_iam_policy_document" "sponsored_bucket_read_only" {
+//   statement {
+//     actions = [
+//       "s3:Get*",
+//       "s3:List*",
+//     ]
+//     resources = [
+//       module.sponsored_dandiset_bucket.bucket_arn,
+//       "${module.sponsored_dandiset_bucket.bucket_arn}/*",
+//     ]
+//     effect = "Allow"
+//   }
 // }
