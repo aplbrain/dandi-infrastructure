@@ -37,9 +37,9 @@ module "api_heroku" {
     DJANGO_DANDI_WEB_APP_URL         = "https://dandi.emberarchive.org"
     DJANGO_DANDI_API_URL             = "https://api-dandi.emberarchive.org"
     DJANGO_DANDI_JUPYTERHUB_URL      = "https://hub.dandiarchive.org/"
-    DJANGO_DANDI_DOI_API_URL         = "https://api.test.datacite.org/dois" # TODO: Replace with "https://api.datacite.org/dois"
-    DJANGO_DANDI_DOI_API_USER        = "JHU.NXHEVY" # TODO: Replace with non-test user
-    DJANGO_DANDI_DOI_API_PREFIX      = "10.82754" # TODO: Replace with non-test prefix
+    DJANGO_DANDI_DOI_API_URL         = "https://api.datacite.org/dois"
+    DJANGO_DANDI_DOI_API_USER        = "JHU.BOSSDB"
+    DJANGO_DANDI_DOI_API_PREFIX      = "10.60533"
     DJANGO_DANDI_DOI_PUBLISH         = "true"
     DJANGO_DANDI_INSTANCE_NAME       = "EMBER-DANDI"
     DJANGO_DANDI_INSTANCE_IDENTIFIER = "RRID:SCR_026700"
