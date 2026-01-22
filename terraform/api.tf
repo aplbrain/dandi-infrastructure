@@ -64,7 +64,7 @@ module "api_heroku" {
   worker_dyno_quantity = 1
   postgresql_plan      = "standard-0"
   cloudamqp_plan       = "ermine" // "squirrel-1"
-  papertrail_plan      = "fixa" // "liatorp"
+  papertrail_plan      = "fixa" // "fredrik"
 }
 
 resource "heroku_formation" "api_checksum_worker" {
