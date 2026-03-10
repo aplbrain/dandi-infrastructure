@@ -2,7 +2,7 @@ module "api_smtp" {
   source  = "kitware-resonant/resonant/heroku//modules/smtp"
   version = "3.0.0"
 
-  fqdn            = "emberarchive.org" # was "api-dandi.emberarchive.org"
+  fqdn            = "emberarchive.org"
   project_slug    = "ember-dandi-api"
   route53_zone_id = aws_route53_zone.dandi.zone_id
 }

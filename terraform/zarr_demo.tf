@@ -1,3 +1,4 @@
+# Not something EMBER-DANDI currently has
 # resource "aws_route53_zone" "zarr_demo" {
 #   name = "zarr-demo.dandiarchive.org"
 # }
