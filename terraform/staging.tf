@@ -32,7 +32,7 @@ module "api_sandbox_heroku" {
     DJANGO_ALLOWED_HOSTS               = join(",", ["apl-setup--ember-dandi-archive.netlify.app", "api-dandi.sandbox.emberarchive.org"])
     DJANGO_CORS_ALLOWED_ORIGINS        = join(",", ["https://apl-setup--ember-dandi-archive.netlify.app", "https://neurosift.app"])
     DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",", ["^https:\\/\\/[0-9a-z\\-]+--dandi-sandbox-emberarchive-org\\.netlify\\.app$", "^https:\\/\\/[0-9a-z\\-]+--ember-dandi-archive\\.netlify\\.app$"])
-    DJANGO_DEFAULT_FROM_EMAIL          = "admin@api-dandi.sandbox.emberarchive.org"
+    DJANGO_DEFAULT_FROM_EMAIL          = "info@emberarchive.org"
     DJANGO_SETTINGS_MODULE             = "dandiapi.settings.heroku_production"
     DJANGO_STORAGE_BUCKET_NAME         = module.staging_dandiset_bucket.bucket_name
 
@@ -94,25 +94,4 @@ resource "aws_iam_user" "api_sandbox_heroku_user" {
 
 resource "aws_iam_access_key" "api_sandbox_heroku_user" {
   user = aws_iam_user.api_sandbox_heroku_user.name
-}
-
-resource "heroku_pipeline" "dandi_pipeline" {
-  name = "ember-dandi-pipeline"
-
-  owner {
-    id   = data.heroku_team.dandi.id
-    type = "team"
-  }
-}
-
-resource "heroku_pipeline_coupling" "staging" {
-  app_id   = module.api_sandbox_heroku.app_id
-  pipeline = heroku_pipeline.dandi_pipeline.id
-  stage    = "staging"
-}
-
-resource "heroku_pipeline_coupling" "production" {
-  app_id   = module.api_heroku.app_id
-  pipeline = heroku_pipeline.dandi_pipeline.id
-  stage    = "production"
 }

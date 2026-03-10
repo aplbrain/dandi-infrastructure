@@ -2,7 +2,7 @@ module "api_smtp" {
   source  = "kitware-resonant/resonant/heroku//modules/smtp"
   version = "3.0.0"
 
-  fqdn            = "api-dandi.emberarchive.org"
+  fqdn            = "emberarchive.org" # was "api-dandi.emberarchive.org"
   project_slug    = "ember-dandi-api"
   route53_zone_id = aws_route53_zone.dandi.zone_id
 }
@@ -26,7 +26,7 @@ module "api_heroku" {
     DJANGO_ALLOWED_HOSTS               = "api-dandi.emberarchive.org"
     DJANGO_CORS_ALLOWED_ORIGINS        = join(",", ["https://dandi.emberarchive.org", "https://neurosift.app"])
     DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",",  ["^https:\\/\\/[0-9a-z\\-]+--gui-dandi.emberarchive-org\\.netlify\\.app$"])
-    DJANGO_DEFAULT_FROM_EMAIL          = "admin@api-dandi.emberarchive.org"
+    DJANGO_DEFAULT_FROM_EMAIL          = "info@emberarchive.org"
     DJANGO_SETTINGS_MODULE             = "dandiapi.settings.heroku_production"
     DJANGO_STORAGE_BUCKET_NAME         = module.sponsored_dandiset_bucket.bucket_name
 
