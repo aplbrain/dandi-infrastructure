@@ -1,5 +1,5 @@
 resource "heroku_pipeline" "dandi_pipeline" {
-  name = "dandi-pipeline"
+  name = "ember-dandi-pipeline"
 
   owner {
     id   = data.heroku_team.dandi.id

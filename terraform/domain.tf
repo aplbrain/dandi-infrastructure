@@ -35,13 +35,14 @@ resource "aws_route53_record" "about" {
   records = ["dandi.github.io."]
 }
 
-resource "aws_route53_record" "atlas" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "atlas"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently has
+# resource "aws_route53_record" "atlas" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "atlas"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
 resource "aws_route53_record" "docs" {
   zone_id = aws_route53_zone.dandi.zone_id
@@ -51,13 +52,14 @@ resource "aws_route53_record" "docs" {
   records = ["dandi.github.io."]
 }
 
-resource "aws_route53_record" "medit" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "medit"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently has
+# resource "aws_route53_record" "medit" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "medit"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
 resource "aws_route53_record" "status" {
   zone_id = aws_route53_zone.dandi.zone_id
