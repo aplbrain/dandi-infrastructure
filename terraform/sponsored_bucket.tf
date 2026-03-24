@@ -1,10 +1,11 @@
 module "sponsored_dandiset_bucket" {
-  source                                = "./modules/dandiset_bucket"
-  bucket_name                           = "ember-open-data"
-  aws_open_data                         = true
-  heroku_user                           = aws_iam_user.api_heroku_user
-  embargo_readers                       = [aws_iam_user.backup] #, aws_iam_user.backups2datalad]
-  log_bucket_name                       = "ember-open-data-logs"
+  source                = "./modules/dandiset_bucket"
+  bucket_name           = "ember-open-data"
+  aws_open_data         = true
+  heroku_user           = aws_iam_user.api_heroku_user
+  embargo_readers       = [aws_iam_user.backup] #, aws_iam_user.backups2datalad]
+  log_bucket_name       = "ember-open-data-logs"
+  inventory_bucket_name = "ember-dandi-inventory"
   providers = {
     aws         = aws.sponsored
     aws.project = aws
