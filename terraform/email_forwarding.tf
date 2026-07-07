@@ -61,10 +61,10 @@ resource "improvmx_domain" "sandbox" {
   domain   = "sandbox.emberarchive.org"
 }
 
-import {
-  to = improvmx_domain.sandbox
-  id = "sandbox.emberarchive.org"
-}
+# import {
+#   to = improvmx_domain.sandbox
+#   id = "sandbox.emberarchive.org"
+# }
 
 resource "improvmx_email_forward" "sandbox_info" {
   domain            = improvmx_domain.sandbox.domain
