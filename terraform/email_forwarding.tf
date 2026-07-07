@@ -61,8 +61,18 @@ resource "improvmx_domain" "sandbox" {
   domain   = "sandbox.emberarchive.org"
 }
 
+import {
+  to = improvmx_domain.sandbox
+  id = "sandbox.emberarchive.org"
+}
+
 resource "improvmx_email_forward" "sandbox_info" {
   domain            = improvmx_domain.sandbox.domain
   alias_name        = "info"
   destination_email = "bbqs-ember-admin@jhuapl.edu"
+}
+
+import {
+  to = improvmx_email_forward.sandbox_info
+  id = "sandbox.emberarchive.org_info"
 }
