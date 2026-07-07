@@ -46,8 +46,8 @@ provider "improvmx" {
 
 provider "improvmx" {
   alias = "sandbox"
-  api_key = var.IMPROVMX_SANDBOX_API_TOKEN
-  # Must set IMPROVMX_SANDBOX_API_TOKEN envvar
+  token = var.IMPROVMX_SANDBOX_API_TOKEN
+  # Must set IMPROVMX_SANDBOX_API_TOKEN var in Terraform
 }
 
 data "aws_canonical_user_id" "project_account" {}
