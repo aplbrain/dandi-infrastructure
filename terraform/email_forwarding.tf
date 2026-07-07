@@ -62,6 +62,7 @@ resource "improvmx_domain" "sandbox" {
 }
 
 import {
+  provider = improvmx.sandbox
   to = improvmx_domain.sandbox
   id = "sandbox.emberarchive.org"
 }
@@ -73,6 +74,7 @@ resource "improvmx_email_forward" "sandbox_info" {
 }
 
 import {
+  provider = improvmx.sandbox
   to = improvmx_email_forward.sandbox_info
   id = "sandbox.emberarchive.org_info"
 }
