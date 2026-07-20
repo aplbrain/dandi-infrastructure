@@ -25,7 +25,7 @@ module "api_heroku" {
     AWS_DEFAULT_REGION                 = data.aws_region.current.region
     DJANGO_ALLOWED_HOSTS               = "api-dandi.emberarchive.org"
     DJANGO_CORS_ALLOWED_ORIGINS        = join(",", concat(["https://dandi.emberarchive.org", "https://brain-bbqs.github.io"], local.allowed_external_services))
-    DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",",  ["^https:\\/\\/[0-9a-z\\-]+--gui-dandi.emberarchive-org\\.netlify\\.app$"])
+    DJANGO_CORS_ALLOWED_ORIGIN_REGEXES = join(",",  ["^https:\\/\\/[0-9a-z\\-]+--gui-dandi.emberarchive-org\\.netlify\\.app$", "^https:\\/\\/([0-9a-z\\-]+\\.)*brain-bbqs\\.org$"])
     DJANGO_DEFAULT_FROM_EMAIL          = "info@emberarchive.org"
     DJANGO_SETTINGS_MODULE             = "dandiapi.settings.heroku_production"
     DJANGO_STORAGE_BUCKET_NAME         = module.sponsored_dandiset_bucket.bucket_name
