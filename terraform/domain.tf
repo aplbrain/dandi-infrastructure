@@ -27,13 +27,14 @@ resource "aws_route53_record" "gui" {
 
 # This resource block and the next are using GitHub's custom domain
 # redirection.
-resource "aws_route53_record" "about" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "about"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently uses
+# resource "aws_route53_record" "about" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "about"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
 # Not something EMBER-DANDI currently has
 # resource "aws_route53_record" "atlas" {
@@ -44,15 +45,16 @@ resource "aws_route53_record" "about" {
 #   records = ["dandi.github.io."]
 # }
 
-resource "aws_route53_record" "docs" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "docs"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently uses
+# resource "aws_route53_record" "docs" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "docs"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
-# Not something EMBER-DANDI currently has
+# Not something EMBER-DANDI currently uses
 # resource "aws_route53_record" "medit" {
 #   zone_id = aws_route53_zone.dandi.zone_id
 #   name    = "medit"
@@ -61,21 +63,23 @@ resource "aws_route53_record" "docs" {
 #   records = ["dandi.github.io."]
 # }
 
-resource "aws_route53_record" "status" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "status"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently uses
+# resource "aws_route53_record" "status" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "status"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
-resource "aws_route53_record" "usage" {
-  zone_id = aws_route53_zone.dandi.zone_id
-  name    = "usage"
-  type    = "CNAME"
-  ttl     = "300"
-  records = ["dandi.github.io."]
-}
+# Not something EMBER-DANDI currently uses
+# resource "aws_route53_record" "usage" {
+#   zone_id = aws_route53_zone.dandi.zone_id
+#   name    = "usage"
+#   type    = "CNAME"
+#   ttl     = "300"
+#   records = ["dandi.github.io."]
+# }
 
 resource "aws_route53_record" "email" {
   zone_id = aws_route53_zone.dandi.zone_id
@@ -99,6 +103,7 @@ resource "aws_route53_record" "email-spf" {
   ]
 }
 
+# Not something EMBER-DANDI currently uses
 # resource "aws_route53_record" "bluesky" {
 #   zone_id = aws_route53_zone.dandi.zone_id
 #   name    = "_atproto.dandiarchive.org"
