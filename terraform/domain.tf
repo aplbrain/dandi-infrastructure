@@ -64,13 +64,29 @@ resource "aws_route53_record" "gui" {
 # }
 
 # Not something EMBER-DANDI currently uses
-# resource "aws_route53_record" "status" {
-#   zone_id = aws_route53_zone.dandi.zone_id
-#   name    = "status"
-#   type    = "CNAME"
-#   ttl     = "300"
-#   records = ["dandi.github.io."]
-# }
+// resource "aws_route53_record" "notebooks" {
+//   zone_id = aws_route53_zone.dandi.zone_id
+//   name    = "notebooks"
+//   type    = "CNAME"
+//   ttl     = "300"
+//   records = ["dandi.github.io."]
+// }
+//
+// resource "aws_route53_record" "stats" {
+//   zone_id = aws_route53_zone.dandi.zone_id
+//   name    = "stats"
+//   type    = "CNAME"
+//   ttl     = "300"
+//   records = ["dandi.github.io."]
+// }
+//
+// resource "aws_route53_record" "status" {
+//   zone_id = aws_route53_zone.dandi.zone_id
+//   name    = "status"
+//   type    = "CNAME"
+//   ttl     = "300"
+//   records = ["dandi.github.io."]
+// }
 
 # Not something EMBER-DANDI currently uses
 # resource "aws_route53_record" "usage" {
